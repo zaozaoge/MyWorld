@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">我的世界</string>
+    <string name="app_name">account</string>
     <string name="title_activity_base">BaseActivity</string>
 </resources>
