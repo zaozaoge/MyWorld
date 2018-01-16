@@ -1,12 +1,10 @@
 package com.zaozao.hu.view.base;
 
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toolbar;
 
-import com.zaozao.hu.R;
+import me.tatarka.bindingcollectionadapter2.LayoutManagers;
+
 
 public class BaseActivity extends AppCompatActivity {
 

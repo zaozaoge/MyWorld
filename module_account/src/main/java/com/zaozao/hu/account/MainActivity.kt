@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zaozao.hu.account.view.base.BaseActivity
 
-@Route(path = "/view/MainActivity")
+@Route(path = "/account/view")
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,9 +3,20 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
+
+kapt {
+    generateStubs = true
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
 android {
-
+    compileOptions {
+        sourceCompatibility 1.7
+        targetCompatibility 1.7
+    }
     signingConfigs {
         myworld {
             keyAlias '我的世界'
@@ -15,6 +26,7 @@ android {
         }
     }
     compileSdkVersion 26
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.zaozao.hu"
         minSdkVersion 15
@@ -22,11 +34,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
+       /* javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
-        }
+        }*/
+    }
+    dataBinding {
+        enabled true
     }
 
     buildTypes {
@@ -41,21 +56,29 @@ android {
 }
 
 dependencies {
-    if (isDebug.toBoolean()){
-        implementation project(':module_library')
-    }else{
-        implementation project(':module_account')
+    if (isDebug.toBoolean()) {
+        compile project(':module_library')
+    } else {
+        compile project(':module_account')
     }
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
-    implementation "com.alibaba:arouter-api:${A_ROUTER_API}"
-    //implementation "com.kelin.mvvmlight:library:${MVVMLIGHT_VERSION}"
-    annotationProcessor "com.alibaba:arouter-compiler:${A_ROUTER_COMPLIER}"
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:recyclerview-v7:${RECYCLER_VERSION}"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    kapt "com.android.databinding:compiler:2.3.3"
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
+    compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}"
+    compile "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+    compile "com.alibaba:arouter-api:${A_ROUTER_API}"
+    kapt "com.alibaba:arouter-compiler:${A_ROUTER_COMPLIER}"
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile 'com.android.support:support-annotations:26.1.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "com.android.support:recyclerview-v7:${RECYCLER_VERSION}"
+    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
+    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
 }
 repositories {
     mavenCentral()
